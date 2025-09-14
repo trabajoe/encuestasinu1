@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuesta - Universidad del Sinú</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f9f9f9;
+    color: #333;
+    touch-action: manipulation;
+}
+header {
+    background-color: #c8102e;
+    color: white;
+    text-align: left;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+header .logo { width: 80px; height: auto; }
+form {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+}
+h2 {
+    color: #c8102e;
+    border-bottom: 2px solid #c8102e;
+    padding-bottom: 5px;
+}
+label { display: block; margin-top: 10px; font-weight: bold; }
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+textarea { resize: vertical; }
+.pregunta { margin-bottom: 20px; }
+button {
+    background-color: #c8102e;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 20px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+button:hover { background-color: #a00e25; }
+footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+}
+@media (max-width: 600px) {
+    header h1 { font-size: 20px; }
+    form { padding: 15px; }
+    button { font-size: 14px; }
+}
+/* Toast */
+#toast {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 16px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    transition: visibility 0s, opacity 0.5s linear;
+    opacity: 0;
+}
+.success { background-color: #4CAF50; }
+.error { background-color: #f44336; }
+</style>
+</head>
+<body>
+<header>
+    <img src="logo.jpg.jpg" alt="Logo Universidad del Sinú" class="logo">
+    <div>
+        <h1>Encuesta de Satisfacción Estudiantil</h1>
+        <p>Universidad del Sinú</p>
+    </div>
+</header>
+
+<form id="miFormulario">
+<section>
+<h2>Datos del estudiante</h2>
+<div class="pregunta">
+<label for="nombre">Nombre completo:</label>
+<input type="text" id="nombre" name="nombre" required>
+</div>
+<div class="pregunta">
+<label for="correo">Correo electrónico:</label>
+<input type="email" id="correo" name="correo" required>
+</div>
+<div class="pregunta">
+<label for="telefono">Número de contacto:</label>
+<input type="tel" id="telefono" name="telefono" required>
+</div>
+<div class="pregunta">
+<label for="facultad">Facultad:</label>
+<select id="facultad" name="facultad" required>
+<option value="">-- Selecciona tu facultad --</option>
+<option>Ingeniería</option>
+<option>Derecho</option>
+<option>Medicina</option>
+<option>Odontología</option>
+<option>Ciencias Económicas</option>
+<option>Educación</option>
+</select>
+</div>
+</section>
+
+<section class="preguntas">
+<h2>Preguntas de calidad del servicio</h2>
+<div class="pregunta"><label for="p1">1. ¿Cómo califica la atención recibida en la universidad?</label><textarea id="p1" name="p1"></textarea></div>
+<div class="pregunta"><label for="p2">2. ¿La información brindada por la universidad fue clara?</label><textarea id="p2" name="p2"></textarea></div>
+<div class="pregunta"><label for="p3">3. ¿Qué aspectos considera que deben mejorar en el servicio al estudiante?</label><textarea id="p3" name="p3"></textarea></div>
+<div class="pregunta"><label for="p4">4. ¿Cómo evalúa la disponibilidad de los docentes y administrativos?</label><textarea id="p4" name="p4"></textarea></div>
+<div class="pregunta"><label for="p5">5. ¿Se siente satisfecho con la infraestructura de la universidad?</label><textarea id="p5" name="p5"></textarea></div>
+<div class="pregunta"><label for="p6">6. ¿Qué opina sobre los servicios de biblioteca y recursos académicos?</label><textarea id="p6" name="p6"></textarea></div>
+<div class="pregunta"><label for="p7">7. ¿Cómo califica la plataforma virtual de la universidad?</label><textarea id="p7" name="p7"></textarea></div>
+<div class="pregunta"><label for="p8">8. ¿Está satisfecho con la oferta de actividades extracurriculares?</label><textarea id="p8" name="p8"></textarea></div>
+<div class="pregunta"><label for="p9">9. ¿Qué tan accesibles le parecen los servicios administrativos?</label><textarea id="p9" name="p9"></textarea></div>
+<div class="pregunta"><label for="p10">10. ¿Recomendaría la universidad a otros estudiantes? ¿Por qué?</label><textarea id="p10" name="p10"></textarea></div>
+</section>
+
+<button type="submit" id="btnGuardar">Guardar encuesta</button>
+<button type="button" id="btnExportar">Exportar y borrar respuestas</button>
+</form>
+
+<footer>
+<p>Universidad del Sinú © 2025 - Todos los derechos reservados</p>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("miFormulario");
+    const btnGuardar = document.getElementById("btnGuardar");
+    const btnExportar = document.getElementById("btnExportar");
+
+    // Cargar datos previos si existen
+    if(localStorage.getItem("encuesta")) {
+        const data = JSON.parse(localStorage.getItem("encuesta"));
+        for (let key in data) {
+            if(document.getElementById(key)) {
+                document.getElementById(key).value = data[key];
+            }
+        }
+    }
+
+    function mostrarToast(mensaje, tipo) {
+        let toast = document.getElementById("toast");
+        toast.className = tipo;
+        toast.innerHTML = mensaje;
+        toast.style.visibility = "visible";
+        toast.style.opacity = "1";
+        setTimeout(() => {
+            toast.style.opacity = "0";
+            toast.style.visibility = "hidden";
+        }, 3000);
+    }
+
+    function guardarEncuesta(e) {
+        e.preventDefault();
+        const campos = ["nombre","correo","telefono","facultad","p1","p2","p3","p4","p5","p6","p7","p8","p9","p10"];
+        let datos = {};
+        let vacio = false;
+        campos.forEach(c => {
+            const val = document.getElementById(c).value.trim();
+            if(!val) vacio = true;
+            datos[c] = val;
+        });
+        if(vacio) { mostrarToast("Por favor llena todos los campos.", "error"); return; }
+        localStorage.setItem("encuesta", JSON.stringify(datos));
+        mostrarToast("Encuesta guardada offline con éxito.", "success");
+    }
+
+    function exportarYBorrar() {
+        if(!localStorage.getItem("encuesta")) { mostrarToast("No hay datos guardados.", "error"); return; }
+        const data = JSON.parse(localStorage.getItem("encuesta"));
+        let contenido = "";
+        for(let key in data) {
+            contenido += `${key}: ${data[key]}\n`;
+        }
+        const blob = new Blob([contenido], {type: "text/plain"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "encuesta.txt";
+        a.click();
+        URL.revokeObjectURL(url);
+        localStorage.removeItem("encuesta");
+        form.reset();
+        mostrarToast("Archivo exportado y encuesta borrada.", "success");
+    }
+
+    form.addEventListener("submit", guardarEncuesta);
+    btnGuardar.addEventListener("touchstart", guardarEncuesta);
+    btnExportar.addEventListener("click", exportarYBorrar);
+    btnExportar.addEventListener("touchstart", exportarYBorrar);
+});
+</script>
+</body>
+</html>
